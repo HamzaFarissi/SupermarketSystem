@@ -8,6 +8,20 @@ package model;
  *
  * @author DELL
  */
-public class Manager {
-    
+import enums.ManagerType;
+
+public class Manager extends Person {
+    private ManagerType managerType;
+
+    public Manager(String firstName, String lastName, ManagerType managerType) {
+        super(firstName, lastName);
+        this.managerType = managerType;
+    }
+
+    public ManagerType getManagerType() { return managerType; }
+
+    @Override
+    public String toString() {
+        return getFullName() + " (" + managerType.getDisplayName() + ")";
+    }
 }
