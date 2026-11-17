@@ -28,12 +28,23 @@ public class FileReaderService {
                 if (line.trim().isEmpty()) continue;
 
                 String[] parts = line.split(",", -1);
-                if (parts.length < 6) continue; // Skip bad lines
+                if (parts.length < 9) {
+                    System.err.println("Skipping invalid employee record at line " + lineNumber
+                            + ": expected 9 columns, found " + parts.length + ".");
+                    continue;
+                }
 
                 String firstName = parts[0].trim();
                 String lastName = parts[1].trim();
                 String email = parts[3].trim();
-                double salary = parseSalary(parts[4].trim());
+                double salary;
+                try {
+                    salary = Double.parseDouble(parts[4].trim());
+                } catch (NumberFormatException e) {
+                    System.err.println("Skipping invalid employee record at line " + lineNumber
+                            + ": salary is not a number.");
+                    continue;
+                }
                 String deptRaw = parts[5].trim();
                 String position = parts[6].trim();
                 String jobTitle = parts[7].trim();
@@ -51,14 +62,6 @@ public class FileReaderService {
 
         System.out.println("[INFO] Loaded " + employees.size() + " employees.");
         return employees;
-    }
-
-    private static double parseSalary(String s) {
-        try {
-            return Double.parseDouble(s);
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
     }
 
     private static ManagerType mapToManagerType(String position, String jobTitle) {
