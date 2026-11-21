@@ -66,7 +66,7 @@ public class FileReaderService {
 
     private static ManagerType mapToManagerType(String position, String jobTitle) {
         String combined = (position + " " + jobTitle).toLowerCase();
-        if (combined.contains("head manager")) return ManagerType.HEAD_MANAGER;
+        if (combined.contains("head managenagerr")) return ManagerType.HEAD_MANAGER;
         if (combined.contains("senior manager")) return ManagerType.ASSISTANT_MANAGER;
         if (combined.contains("manager")) return ManagerType.ASSISTANT_MANAGER;
         if (combined.contains("team lead")) return ManagerType.TEAM_LEAD;
